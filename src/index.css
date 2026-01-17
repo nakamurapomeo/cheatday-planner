@@ -715,3 +715,46 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
+/* Animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Focus states */
+.focus\:border-orange-500\/50:focus {
+  border-color: rgba(249, 115, 22, 0.5);
+}
+
+.focus\:ring-1:focus {
+  box-shadow: 0 0 0 1px;
+}
+
+.focus\:ring-orange-500\/20:focus {
+  --tw-ring-color: rgba(249, 115, 22, 0.2);
+}
+
+/* Disabled states */
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
+}
+
+.disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed;
+}
+
+/* Height utilities */
+.h-10 {
+  height: 2.5rem;
+}
+
+/* Padding top */
+.pt-10 {
+  padding-top: 2.5rem;
+}

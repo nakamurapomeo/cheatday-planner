@@ -145,9 +145,46 @@ const JustifiedGallery = ({ imgs, onRm, targetRowHeight = 120, containerWidth = 
   );
 };
 
-export default function App() {
+export default function App({ loadData, saveData }) {
   const [cats, setCats] = useState(defCats);
   const [plans, setPlans] = useState([{ id: 'def', name: '新しいプラン', date: new Date().toISOString().split('T')[0], items: [] }]);
+  const [loaded, setLoaded] = useState(false);
+  const saveTimeoutRef = useRef(null);
+
+  // Load data from cloud on mount
+  useEffect(() => {
+    if (loadData) {
+      loadData().then(data => {
+        if (data) {
+          if (data.plans) setPlans(data.plans);
+          if (data.cats) setCats(data.cats);
+          if (data.curId) setCurId(data.curId);
+        }
+        setLoaded(true);
+      });
+    } else {
+      setLoaded(true);
+    }
+  }, []);
+
+  // Auto-save to cloud when data changes (debounced)
+  useEffect(() => {
+    if (!loaded || !saveData) return;
+
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+
+    saveTimeoutRef.current = setTimeout(() => {
+      saveData({ plans, cats, curId });
+    }, 2000);
+
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+    };
+  }, [plans, cats, curId, loaded]);
   const [curId, setCurId] = useState('def');
   const [dragged, setDragged] = useState(null);
   const [editId, setEditId] = useState(null);
