@@ -148,7 +148,17 @@ const JustifiedGallery = ({ imgs, onRm, targetRowHeight = 120, containerWidth = 
 export default function App({ loadData, saveData }) {
   const [cats, setCats] = useState(defCats);
   const [plans, setPlans] = useState([{ id: 'def', name: '新しいプラン', date: new Date().toISOString().split('T')[0], items: [] }]);
+  const [curId, setCurId] = useState('def');
+  const [dragged, setDragged] = useState(null);
+  const [editId, setEditId] = useState(null);
+  const [showList, setShowList] = useState(false);
+  const [editName, setEditName] = useState(false);
+  const [view, setView] = useState('list');
+  const [imgDrag, setImgDrag] = useState(null);
+  const [showCat, setShowCat] = useState(false);
+  const [newCat, setNewCat] = useState({ name: '', color: '#f97316' });
   const [loaded, setLoaded] = useState(false);
+  const impRef = useRef(null);
   const saveTimeoutRef = useRef(null);
 
   // Load data from cloud on mount
@@ -185,16 +195,6 @@ export default function App({ loadData, saveData }) {
       }
     };
   }, [plans, cats, curId, loaded]);
-  const [curId, setCurId] = useState('def');
-  const [dragged, setDragged] = useState(null);
-  const [editId, setEditId] = useState(null);
-  const [showList, setShowList] = useState(false);
-  const [editName, setEditName] = useState(false);
-  const [view, setView] = useState('list');
-  const [imgDrag, setImgDrag] = useState(null);
-  const [showCat, setShowCat] = useState(false);
-  const [newCat, setNewCat] = useState({ name: '', color: '#f97316' });
-  const impRef = useRef(null);
 
   const plan = plans.find(p => p.id === curId) || plans[0], items = plan?.items || [];
   const setItems = (a) => setPlans(plans.map(p => p.id === curId ? { ...p, items: a } : p));
