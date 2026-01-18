@@ -230,9 +230,9 @@ export default function App({ loadData, saveData }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-3">
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-4 mb-4 border border-white/10">
+        <div className="card-enhanced rounded-2xl p-5 mb-5 animate-fadeIn">
           <div className="flex items-center justify-between mb-3">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-orange-400 to-pink-500 bg-clip-text text-transparent">🎉 チートデイプランナー</h1>
+            <h1 className="text-2xl font-bold gradient-text flex items-center gap-2"><span className="text-2xl">🍕</span> チートデイプランナー</h1>
             <div className="flex gap-1">
               {[['list', LayoutList], ['timeline', AlignJustify], ['overview', Calendar]].map(([v, I]) => <button key={v} onClick={() => setView(v)} className={`p-2 rounded-lg ${view === v ? 'bg-white/20' : 'hover:bg-white/10'}`}><I size={18} /></button>)}
               <div className="w-px bg-white/20 mx-1" />
@@ -272,8 +272,8 @@ export default function App({ loadData, saveData }) {
           </div>;
         })}</div>}
 
-        <button onClick={add} className="w-full mt-4 p-4 border-2 border-dashed border-white/20 hover:border-orange-500/50 rounded-xl flex items-center justify-center gap-2 text-white/60 hover:text-orange-400"><Plus size={20} />予定を追加</button>
-        {items.length === 0 && <div className="text-center py-12 text-white/40"><Sparkles size={48} className="mx-auto mb-4 opacity-50" /><p>まだ予定がありません</p></div>}
+        <button onClick={add} className="add-button w-full mt-5 flex items-center justify-center gap-3 text-white/60 hover:text-orange-400 group"><Plus size={22} className="add-icon" /><span className="font-medium">予定を追加</span></button>
+        {items.length === 0 && <div className="empty-state"><div className="empty-state-icon"><Sparkles size={36} className="text-orange-400" /></div><p className="text-lg font-medium text-white/70 mb-2">まだ予定がありません</p><p className="text-sm text-white/40">上のボタンから予定を追加してみましょう！</p></div>}
       </div>
     </div>
   );

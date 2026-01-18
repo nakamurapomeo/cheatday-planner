@@ -3,14 +3,13 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
 import Login from './Login.jsx';
-import { Loader2, LogOut, Cloud, CloudOff, RefreshCw } from 'lucide-react';
+import { Loader2, LogOut, Cloud, CloudOff, RefreshCw, Check } from 'lucide-react';
 
 function AuthWrapper() {
-  const [authState, setAuthState] = useState('loading'); // loading, authenticated, unauthenticated
-  const [syncStatus, setSyncStatus] = useState('idle'); // idle, syncing, synced, error
+  const [authState, setAuthState] = useState('loading');
+  const [syncStatus, setSyncStatus] = useState('idle');
   const [lastSynced, setLastSynced] = useState(null);
 
-  // Check auth on mount
   useEffect(() => {
     checkAuth();
   }, []);
@@ -21,7 +20,6 @@ function AuthWrapper() {
       const data = await res.json();
       setAuthState(data.authenticated ? 'authenticated' : 'unauthenticated');
     } catch (e) {
-      // If API not available (local dev), skip auth
       setAuthState('authenticated');
     }
   };
@@ -37,7 +35,6 @@ function AuthWrapper() {
     setAuthState('unauthenticated');
   };
 
-  // Load data from KV
   const loadData = async () => {
     setSyncStatus('syncing');
     try {
@@ -60,7 +57,6 @@ function AuthWrapper() {
     }
   };
 
-  // Save data to KV
   const saveData = async (data) => {
     setSyncStatus('syncing');
     try {
@@ -89,7 +85,15 @@ function AuthWrapper() {
   if (authState === 'loading') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
-        <Loader2 size={48} className="text-orange-500 animate-spin" />
+        <div className="text-center animate-fadeIn">
+          <div className="relative w-16 h-16 mx-auto mb-4">
+            <div className="absolute inset-0 rounded-full bg-orange-500/30 blur-lg animate-pulse" />
+            <div className="relative w-full h-full rounded-full bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center">
+              <Loader2 size={32} className="text-white animate-spin" />
+            </div>
+          </div>
+          <p className="text-white/50 text-sm">読み込み中...</p>
+        </div>
       </div>
     );
   }
@@ -98,39 +102,48 @@ function AuthWrapper() {
     return <Login onLogin={handleLogin} />;
   }
 
+  const SyncIcon = syncStatus === 'syncing' ? RefreshCw :
+    syncStatus === 'synced' ? Check :
+      syncStatus === 'error' ? CloudOff : Cloud;
+
+  const syncColor = syncStatus === 'syncing' ? 'text-orange-400' :
+    syncStatus === 'synced' ? 'text-emerald-400' :
+      syncStatus === 'error' ? 'text-red-400' : 'text-white/40';
+
+  const syncText = syncStatus === 'syncing' ? '同期中...' :
+    syncStatus === 'synced' ? `保存済み` :
+      syncStatus === 'error' ? '同期エラー' : 'ローカル';
+
   return (
     <div className="relative">
-      {/* Sync status bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur border-b border-white/10">
-        <div className="max-w-2xl mx-auto px-3 py-2 flex items-center justify-between text-sm">
-          <div className="flex items-center gap-2">
-            {syncStatus === 'syncing' ? (
-              <RefreshCw size={14} className="text-orange-400 animate-spin" />
-            ) : syncStatus === 'synced' ? (
-              <Cloud size={14} className="text-emerald-400" />
-            ) : syncStatus === 'error' ? (
-              <CloudOff size={14} className="text-red-400" />
-            ) : (
-              <Cloud size={14} className="text-white/40" />
-            )}
-            <span className="text-white/60">
-              {syncStatus === 'syncing' ? '同期中...' :
-                syncStatus === 'synced' ? `同期済み ${lastSynced?.toLocaleTimeString('ja-JP')}` :
-                  syncStatus === 'error' ? '同期エラー' : 'ローカル'}
+      {/* Enhanced Sync Status Bar */}
+      <div className="sync-bar fixed top-0 left-0 right-0 z-50">
+        <div className="max-w-2xl mx-auto px-4 py-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className={`p-1.5 rounded-lg ${syncStatus === 'synced' ? 'bg-emerald-500/10' : syncStatus === 'error' ? 'bg-red-500/10' : 'bg-white/5'}`}>
+              <SyncIcon size={14} className={`${syncColor} ${syncStatus === 'syncing' ? 'animate-spin' : ''}`} />
+            </div>
+            <span className="text-sm text-white/60">
+              {syncText}
+              {lastSynced && syncStatus === 'synced' && (
+                <span className="text-white/40 ml-1.5">
+                  {lastSynced.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })}
+                </span>
+              )}
             </span>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1 text-white/60 hover:text-white/90 px-2 py-1 rounded hover:bg-white/10"
+            className="flex items-center gap-2 text-white/50 hover:text-white/90 px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all text-sm"
           >
             <LogOut size={14} />
-            ログアウト
+            <span className="hidden sm:inline">ログアウト</span>
           </button>
         </div>
       </div>
 
       {/* Main app with padding for status bar */}
-      <div className="pt-10">
+      <div className="pt-12">
         <App loadData={loadData} saveData={saveData} />
       </div>
     </div>
