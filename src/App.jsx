@@ -483,8 +483,6 @@ export default function App({ loadData, saveData }) {
 
           <button
             onClick={addItem}
-          <button
-            onClick={addItem}
             className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white px-10 py-2.5 rounded-full font-bold shadow-lg shadow-orange-200/50 flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95"
           >
             <Plus size={20} /> <span className="tracking-wide">追加</span>
