@@ -3,34 +3,47 @@
    High Density, Clean, Information Rich
    =================================== */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Vibrant Palette */
   --primary-orange: #f97316;
   --primary-pink: #ec4899;
   --primary-purple: #a855f7;
   --success-green: #10b981;
-  
+
   /* Light Mode Backgrounds */
-  --bg-main: #f8fafc; /* Slate 50 */
+  --bg-main: #f8fafc;
+  /* Slate 50 */
   --bg-sidebar: #ffffff;
   --bg-card: #ffffff;
-  --bg-hover: #f1f5f9; /* Slate 100 */
-  --bg-active: #e2e8f0; /* Slate 200 */
+  --bg-hover: #f1f5f9;
+  /* Slate 100 */
+  --bg-active: #e2e8f0;
+  /* Slate 200 */
 
   /* Light Mode Text */
-  --text-primary: #0f172a; /* Slate 900 */
-  --text-secondary: #64748b; /* Slate 500 */
-  --text-muted: #94a3b8; /* Slate 400 */
-  --text-light: #ffffff; /* For buttons etc */
+  --text-primary: #0f172a;
+  /* Slate 900 */
+  --text-secondary: #64748b;
+  /* Slate 500 */
+  --text-muted: #94a3b8;
+  /* Slate 400 */
+  --text-light: #ffffff;
+  /* For buttons etc */
 
   /* Borders & Shadows */
-  --border-subtle: #e2e8f0; /* Slate 200 */
+  --border-subtle: #e2e8f0;
+  /* Slate 200 */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  
+
   --sidebar-width: 280px;
-  --header-height: 0px; /* No header, full height */
+  --header-height: 0px;
+  /* No header, full height */
 }
 
 * {
@@ -44,7 +57,8 @@ body {
   background-color: var(--bg-main);
   color: var(--text-primary);
   height: 100vh;
-  overflow: hidden; /* App-like feel */
+  overflow: hidden;
+  /* App-like feel */
 }
 
 /* Scrollbar */
@@ -52,23 +66,45 @@ body {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
 /* Typography Overrides for Density */
-.text-xs { font-size: 0.75rem; line-height: 1rem; }
-.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-.text-base { font-size: 1rem; line-height: 1.5rem; }
-.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
 
 /* Utilities */
 .card-shadow {
@@ -88,10 +124,20 @@ body {
 }
 
 /* Animation Classes */
-.animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Sidebar Specifics */
@@ -101,9 +147,12 @@ body {
 }
 
 /* Inputs */
-input, textarea {
+input,
+textarea {
   color: var(--text-primary);
 }
-input::placeholder, textarea::placeholder {
+
+input::placeholder,
+textarea::placeholder {
   color: var(--text-muted);
 }
