@@ -93,7 +93,7 @@ const ScheduleView = ({
                 return (
                     <div
                         key={item.id}
-                        className={`group relative flex gap-4 transition-all duration-300 ${viewMode === 'timeline' ? 'items-start mb-0' : 'items-center mb-2'}`}
+                        className={`group relative flex gap-4 transition-all duration-300 ${viewMode === 'timeline' ? 'mb-0 items-stretch' : 'items-center mb-2'}`}
                         style={style}
                         onClick={() => onEdit(item.id)}
                     >
@@ -105,11 +105,9 @@ const ScheduleView = ({
 
                         {/* Main Card */}
                         <div
-                            className="flex-1 rounded-xl bg-white card-shadow relative group-hover:shadow-md transition-shadow cursor-pointer"
+                            className={`flex-1 bg-white card-shadow relative group-hover:shadow-md transition-shadow cursor-pointer ${viewMode === 'timeline' ? 'rounded-lg' : 'rounded-xl'}`}
                             style={{
                                 borderLeft: `4px solid ${cat?.color || '#ccc'}`,
-                                // Remove overflow-hidden to allow sticky children if needed, but rounding clips images. 
-                                // Actually, sticky inside here works if height is tall.
                             }}
                         >
                             <div className={`${viewMode === 'timeline' ? 'sticky top-[80px] h-full' : ''} p-3 flex flex-col`}>
