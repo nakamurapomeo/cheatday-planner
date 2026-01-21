@@ -147,18 +147,36 @@ export default function App({ loadData, saveData }) {
     a.click();
   };
 
-  const handleImageUpload = (itemId, files) => {
-    Array.from(files).forEach(f => {
-      if (!f.type.startsWith('image/')) return;
-      const r = new FileReader();
-      r.onload = (e) => {
-        const item = items.find(i => i.id === itemId);
-        if (item) {
-          updateItem(itemId, { images: [...(item.images || []), e.target.result] });
-        }
-      };
-      r.readAsDataURL(f);
-    });
+  const handleImageUpload = async (itemId, files) => {
+    const fileList = Array.from(files).filter(f => f.type.startsWith('image/'));
+    if (fileList.length === 0) return;
+
+    try {
+      const newImages = await Promise.all(
+        fileList.map(f => new Promise((resolve, reject) => {
+          const r = new FileReader();
+          r.onload = e => resolve(e.target.result);
+          r.onerror = reject;
+          r.readAsDataURL(f);
+        }))
+      );
+
+      setPlans(currentPlans => currentPlans.map(p => {
+        if (p.id !== curId) return p;
+        return {
+          ...p,
+          items: p.items.map(i => {
+            if (i.id !== itemId) return i;
+            return {
+              ...i,
+              images: [...(i.images || []), ...newImages]
+            };
+          })
+        };
+      }));
+    } catch (err) {
+      console.error('Image upload failed', err);
+    }
   };
 
   // --- Render Components ---
