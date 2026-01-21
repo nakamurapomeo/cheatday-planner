@@ -10,19 +10,19 @@ function AuthWrapper() {
   const [syncStatus, setSyncStatus] = useState('idle');
   const [lastSynced, setLastSynced] = useState(null);
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
   const checkAuth = async () => {
     try {
       const res = await fetch('/api/auth/verify');
       const data = await res.json();
       setAuthState(data.authenticated ? 'authenticated' : 'unauthenticated');
-    } catch (e) {
+    } catch {
       setAuthState('authenticated');
     }
   };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const handleLogin = () => {
     setAuthState('authenticated');
@@ -31,7 +31,7 @@ function AuthWrapper() {
   const handleLogout = async () => {
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
-    } catch (e) { }
+    } catch { }
     setAuthState('unauthenticated');
   };
 
@@ -51,7 +51,7 @@ function AuthWrapper() {
       }
       setSyncStatus('idle');
       return null;
-    } catch (e) {
+    } catch {
       setSyncStatus('error');
       return null;
     }
@@ -76,7 +76,7 @@ function AuthWrapper() {
       }
       setSyncStatus('error');
       return false;
-    } catch (e) {
+    } catch {
       setSyncStatus('error');
       return false;
     }

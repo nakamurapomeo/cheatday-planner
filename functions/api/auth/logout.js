@@ -1,6 +1,6 @@
 import { clearAuthCookie } from '../../lib/jwt.js';
 
-export async function onRequestPost(context) {
+export async function onRequestPost() {
     return new Response(
         JSON.stringify({ success: true }),
         {

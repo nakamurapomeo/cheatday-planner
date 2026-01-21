@@ -27,7 +27,7 @@ export default function Login({ onLogin }) {
             } else {
                 setError(data.error || 'ログインに失敗しました');
             }
-        } catch (e) {
+        } catch {
             setError('サーバーに接続できません');
         } finally {
             setLoading(false);
