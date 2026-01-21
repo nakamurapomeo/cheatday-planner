@@ -64,7 +64,8 @@ const ScheduleView = ({
             {processedItems.map((node, idx) => {
                 if (node.type === 'gap') {
                     return (
-                        <div key={`gap-${idx}`} className="flex items-center gap-4 pl-4 opacity-60 relative group/gap" style={{ height: node.height, minHeight: '32px' }}>
+                    return (
+                        <div key={`gap-${idx}`} className="flex items-center gap-4 pl-4 opacity-60 relative group/gap" style={viewMode === 'timeline' ? { height: node.height } : { height: '32px', marginBottom: '8px' }}>
                             <div className="w-16 text-right text-xs font-mono text-slate-400">
                                 {node.duration}分
                             </div>
@@ -86,10 +87,10 @@ const ScheduleView = ({
                 const duration = toMin(item.endTime) - toMin(item.startTime);
 
                 // Timeline View: Height is proportional
-                // List View: Height is auto
+                // List View: Height is auto (undefined)
                 const style = viewMode === 'timeline'
-                    ? { height: Math.max(24, duration * PX_PER_MIN) + 'px' }
-                    : {};
+                    ? { height: (duration * PX_PER_MIN) + 'px' }
+                    : undefined;
 
                 return (
                     <div
@@ -98,8 +99,10 @@ const ScheduleView = ({
                         style={style}
                         onClick={() => onEdit(item.id)}
                     >
+                        onClick={() => onEdit(item.id)}
+                    >
                         {/* Time Column */}
-                        <div className="w-16 flex flex-col items-end pt-1 sticky top-[80px]">
+                        <div className={`w-16 flex flex-col items-end pt-1 ${viewMode === 'timeline' ? 'sticky top-[80px]' : ''}`}>
                             <span className="text-sm font-bold font-mono text-slate-700">{item.startTime}</span>
                             <span className="text-xs text-slate-400 font-mono">{item.endTime}</span>
                         </div>
@@ -113,11 +116,11 @@ const ScheduleView = ({
                                 // Actually, sticky inside here works if height is tall.
                             }}
                         >
-                            <div className="p-3 sticky top-[80px]">
+                            <div className={`${viewMode === 'timeline' ? 'sticky top-[80px] h-full' : ''} p-3 flex flex-col`}>
                                 <div className="flex items-start justify-between gap-2">
                                     <div className="flex-1 min-w-0">
                                         {/* Title */}
-                                        <div className="font-bold text-slate-800 text-lg leading-tight mb-1 truncate">
+                                        <div className={`font-bold text-slate-800 leading-tight mb-1 truncate ${viewMode === 'timeline' && duration < 30 ? 'text-sm' : 'text-lg'}`}>
                                             {item.title || '(タイトルなし)'}
                                         </div>
 
