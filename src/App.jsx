@@ -170,13 +170,13 @@ export default function App({ loadData, saveData }) {
         <h1 className="text-xl font-bold gradient-text flex items-center gap-2">
           <span>🍕</span> CheatDay
         </h1>
-        <p className="text-xs text-slate-400 mt-1">Plan your perfect day</p>
+        <p className="text-xs text-slate-400 mt-1">最高の1日を計画しよう</p>
       </div>
 
       <div className="p-4 space-y-6 flex-1 overflow-y-auto">
         {/* Date / Plan Meta */}
         <section>
-          <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">PLAN</label>
+          <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">プラン名</label>
           <input
             type="text"
             value={plan.name}
@@ -197,7 +197,7 @@ export default function App({ loadData, saveData }) {
         {/* Categories */}
         <section>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">CATEGORIES</label>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">カテゴリ</label>
             <button onClick={() => setIsAddingCat(!isAddingCat)} className="p-1 hover:bg-slate-100 rounded text-slate-500">
               {isAddingCat ? <X size={14} /> : <Plus size={14} />}
             </button>
@@ -209,13 +209,13 @@ export default function App({ loadData, saveData }) {
                 <input type="color" value={newCatColor} onChange={e => setNewCatColor(e.target.value)} className="w-8 h-8 rounded cursor-pointer" />
                 <input
                   type="text"
-                  placeholder="Name"
+                  placeholder="カテゴリ名"
                   value={newCatName}
                   onChange={e => setNewCatName(e.target.value)}
                   className="flex-1 bg-white border border-slate-200 rounded px-2 outline-none"
                 />
               </div>
-              <button onClick={addCategory} className="w-full bg-orange-500 text-white rounded py-1 text-xs font-bold">Add</button>
+              <button onClick={addCategory} className="w-full bg-orange-500 text-white rounded py-1 text-xs font-bold">追加</button>
             </div>
           )}
 
@@ -238,7 +238,7 @@ export default function App({ loadData, saveData }) {
 
         {/* Tools */}
         <section>
-          <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">TOOLS</label>
+          <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">ツール</label>
           <div className="grid grid-cols-2 gap-2">
             <button onClick={() => impRef.current?.click()} className="flex items-center justify-center gap-2 px-3 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded text-xs text-slate-600 font-medium transition-colors">
               <Upload size={14} /> Import
@@ -266,7 +266,7 @@ export default function App({ loadData, saveData }) {
       {editingItem ? (
         <>
           <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-            <h2 className="font-bold text-slate-700">Edit Details</h2>
+            <h2 className="font-bold text-slate-700">詳細を編集</h2>
             <button onClick={() => deleteItem(editingItem.id)} className="text-red-400 hover:bg-red-50 p-1.5 rounded-lg transition-colors">
               <Trash2 size={16} />
             </button>
@@ -275,20 +275,20 @@ export default function App({ loadData, saveData }) {
           <div className="flex-1 overflow-y-auto p-4 space-y-5">
             {/* Title */}
             <div>
-              <label className="block text-xs font-bold text-slate-400 mb-1">TITLE</label>
+              <label className="block text-xs font-bold text-slate-400 mb-1">タイトル</label>
               <input
                 type="text"
                 value={editingItem.title}
                 onChange={(e) => updateItem(editingItem.id, { title: e.target.value })}
                 className="w-full text-lg font-bold text-slate-800 border-b-2 border-slate-100 focus:border-orange-400 outline-none pb-1 bg-transparent placeholder-slate-300"
-                placeholder="What are you doing?"
+                placeholder="何をする？"
               />
             </div>
 
             {/* Time */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-400 mb-1">START</label>
+                <label className="block text-xs font-bold text-slate-400 mb-1">開始</label>
                 <input
                   type="time"
                   value={editingItem.startTime}
@@ -297,7 +297,7 @@ export default function App({ loadData, saveData }) {
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-400 mb-1">END</label>
+                <label className="block text-xs font-bold text-slate-400 mb-1">終了</label>
                 <input
                   type="time"
                   value={editingItem.endTime}
@@ -309,7 +309,7 @@ export default function App({ loadData, saveData }) {
 
             {/* Category */}
             <div>
-              <label className="block text-xs font-bold text-slate-400 mb-2">CATEGORY</label>
+              <label className="block text-xs font-bold text-slate-400 mb-2">カテゴリ</label>
               <div className="flex flex-wrap gap-2">
                 {cats.map(c => (
                   <button
@@ -328,7 +328,7 @@ export default function App({ loadData, saveData }) {
             {/* Meta: Budget & Loc */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-400 mb-1">BUDGET</label>
+                <label className="block text-xs font-bold text-slate-400 mb-1">予算</label>
                 <div className="relative">
                   <span className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 text-xs">¥</span>
                   <input
@@ -341,34 +341,34 @@ export default function App({ loadData, saveData }) {
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-400 mb-1">LOCATION</label>
+                <label className="block text-xs font-bold text-slate-400 mb-1">場所</label>
                 <input
                   type="text"
                   value={editingItem.location}
                   onChange={(e) => updateItem(editingItem.id, { location: e.target.value })}
                   className="w-full px-2 py-2 bg-slate-50 border border-slate-200 rounded text-sm outline-none"
-                  placeholder="Place"
+                  placeholder="場所を入力"
                 />
               </div>
             </div>
 
             {/* Memo */}
             <div>
-              <label className="block text-xs font-bold text-slate-400 mb-1">MEMO</label>
+              <label className="block text-xs font-bold text-slate-400 mb-1">メモ</label>
               <textarea
                 value={editingItem.memo}
                 onChange={(e) => updateItem(editingItem.id, { memo: e.target.value })}
                 className="w-full p-3 bg-slate-50 border border-slate-200 rounded text-sm outline-none h-24 resize-none"
-                placeholder="Notes..."
+                placeholder="メモを入力..."
               />
             </div>
 
             {/* Images */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-bold text-slate-400">IMAGES</label>
+                <label className="text-xs font-bold text-slate-400">画像</label>
                 <button onClick={() => document.getElementById('upload-img').click()} className="text-xs text-orange-500 font-bold hover:underline">
-                  + Add
+                  + 追加
                 </button>
                 <input id="upload-img" type="file" multiple accept="image/*" onChange={(e) => handleImageUpload(editingItem.id, e.target.files)} className="hidden" />
               </div>
@@ -394,14 +394,14 @@ export default function App({ loadData, saveData }) {
                   />
                 ) : (
                   <div className="text-center py-6 text-slate-300 text-xs pointer-events-none">
-                    Drag & Drop Images
+                    画像をドラッグ＆ドロップ
                   </div>
                 )}
               </div>
             </div>
 
             <button onClick={() => setEditId(null)} className="w-full py-3 mt-4 text-slate-500 font-medium hover:bg-slate-100 rounded-lg">
-              Close Edit
+              編集を閉じる
             </button>
           </div>
         </>
@@ -410,11 +410,11 @@ export default function App({ loadData, saveData }) {
           <div className="w-20 h-20 bg-orange-50 rounded-full flex items-center justify-center mb-4">
             <Info size={32} className="text-orange-400" />
           </div>
-          <h3 className="text-slate-700 font-bold mb-2">No Item Selected</h3>
-          <p className="text-slate-400 text-sm mb-6">Select a schedule item to view details or edit its content.</p>
+          <h3 className="text-slate-700 font-bold mb-2">予定が選択されていません</h3>
+          <p className="text-slate-400 text-sm mb-6">予定を選択すると詳細が表示されます。</p>
 
           <div className="w-full bg-slate-50 rounded-xl p-4 border border-slate-100">
-            <p className="text-xs text-slate-400 uppercase font-bold mb-2">Total Budget</p>
+            <p className="text-xs text-slate-400 uppercase font-bold mb-2">予算合計</p>
             <p className="text-3xl font-bold text-emerald-500 font-mono">¥{totalBudget.toLocaleString()}</p>
           </div>
         </div>
@@ -449,7 +449,7 @@ export default function App({ loadData, saveData }) {
             onClick={addItem}
             className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg shadow-orange-200 flex items-center gap-2 transition-transform active:scale-95"
           >
-            <Plus size={18} /> Add
+            <Plus size={18} /> 追加
           </button>
         </div>
 

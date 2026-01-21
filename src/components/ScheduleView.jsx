@@ -109,7 +109,7 @@ const ScheduleView = ({
                                     <div className="flex-1 min-w-0">
                                         {/* Title */}
                                         <div className="font-bold text-slate-800 text-lg leading-tight mb-1 truncate">
-                                            {item.title || '(No Title)'}
+                                            {item.title || '(タイトルなし)'}
                                         </div>
 
                                         {/* Meta Row */}

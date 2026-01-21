@@ -89,7 +89,7 @@ export default function Layout({
             <div className={`fixed top-0 left-0 bottom-0 w-[80%] max-w-[300px] bg-white z-50 transform transition-transform duration-300 shadow-2xl lg:hidden ${showLeft ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="h-full flex flex-col">
                     <div className="flex justify-between items-center p-3 border-b border-slate-100">
-                        <span className="font-bold text-slate-700">Menu</span>
+                        <span className="font-bold text-slate-700">メニュー</span>
                         <button onClick={() => setShowLeft(false)} className="p-2"><PanelRightClose size={20} /></button>
                     </div>
                     {leftSidebar}
@@ -103,7 +103,7 @@ export default function Layout({
             <div className={`fixed top-0 right-0 bottom-0 w-[85%] max-w-[340px] bg-white z-50 transform transition-transform duration-300 shadow-2xl lg:hidden ${showRight ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="h-full flex flex-col">
                     <div className="flex justify-between items-center p-3 border-b border-slate-100">
-                        <span className="font-bold text-slate-700">Details</span>
+                        <span className="font-bold text-slate-700">詳細</span>
                         <button onClick={() => setShowRight(false)} className="p-2"><PanelLeftClose size={20} /></button>
                     </div>
                     {rightSidebar}
