@@ -335,7 +335,7 @@ export default function App({ loadData, saveData }) {
                     type="number"
                     value={editingItem.budget}
                     onChange={(e) => updateItem(editingItem.id, { budget: e.target.value })}
-                    className="w-full pl-6 pr-2 py-2 bg-slate-50 border border-slate-200 rounded text-sm font-mono outline-none"
+                    className="w-full pl-8 pr-2 py-2 bg-slate-50 border border-slate-200 rounded text-sm font-mono outline-none"
                     placeholder="0"
                   />
                 </div>

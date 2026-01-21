@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
@@ -10,7 +10,7 @@ function AuthWrapper() {
   const [syncStatus, setSyncStatus] = useState('idle');
   const [lastSynced, setLastSynced] = useState(null);
 
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     try {
       const res = await fetch('/api/auth/verify');
       const data = await res.json();
@@ -18,24 +18,24 @@ function AuthWrapper() {
     } catch {
       setAuthState('authenticated');
     }
-  };
+  }, []);
 
   useEffect(() => {
     checkAuth();
   }, []);
 
-  const handleLogin = () => {
+  const handleLogin = useCallback(() => {
     setAuthState('authenticated');
-  };
+  }, []);
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
     } catch { }
     setAuthState('unauthenticated');
-  };
+  }, []);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setSyncStatus('syncing');
     try {
       const res = await fetch('/api/data');
@@ -55,9 +55,9 @@ function AuthWrapper() {
       setSyncStatus('error');
       return null;
     }
-  };
+  }, []);
 
-  const saveData = async (data) => {
+  const saveData = useCallback(async (data) => {
     setSyncStatus('syncing');
     try {
       const res = await fetch('/api/data', {
@@ -80,7 +80,7 @@ function AuthWrapper() {
       setSyncStatus('error');
       return false;
     }
-  };
+  }, []);
 
   if (authState === 'loading') {
     return (
