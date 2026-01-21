@@ -64,7 +64,6 @@ const ScheduleView = ({
             {processedItems.map((node, idx) => {
                 if (node.type === 'gap') {
                     return (
-                    return (
                         <div key={`gap-${idx}`} className="flex items-center gap-4 pl-4 opacity-60 relative group/gap" style={viewMode === 'timeline' ? { height: node.height } : { height: '32px', marginBottom: '8px' }}>
                             <div className="w-16 text-right text-xs font-mono text-slate-400">
                                 {node.duration}分
@@ -97,8 +96,6 @@ const ScheduleView = ({
                         key={item.id}
                         className={`group relative flex gap-4 transition-all duration-300 ${viewMode === 'timeline' ? 'items-start mb-0' : 'items-center mb-2'}`}
                         style={style}
-                        onClick={() => onEdit(item.id)}
-                    >
                         onClick={() => onEdit(item.id)}
                     >
                         {/* Time Column */}
