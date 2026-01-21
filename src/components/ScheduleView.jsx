@@ -43,7 +43,6 @@ const ScheduleView = ({
                         type: 'gap',
                         duration: gap,
                         startTime: item.endTime,
-                        startTime: item.endTime,
                         endTime: nextItem.startTime,
                         height: gap * PX_PER_MIN
                     });
