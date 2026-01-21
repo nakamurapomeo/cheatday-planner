@@ -9,13 +9,16 @@ const toMin = (t) => {
     return h * 60 + m;
 };
 
+const PX_PER_MIN = 2.5; // 1 hour = 150px
+
 
 
 const ScheduleView = ({
     items,
     cats,
     viewMode, // 'list' or 'timeline' 
-    onEdit
+    onEdit,
+    onImgClick
 }) => {
 
     // Calculate gaps and process items for display
@@ -40,7 +43,9 @@ const ScheduleView = ({
                         type: 'gap',
                         duration: gap,
                         startTime: item.endTime,
-                        endTime: nextItem.startTime
+                        startTime: item.endTime,
+                        endTime: nextItem.startTime,
+                        height: gap * PX_PER_MIN
                     });
                 }
             }
@@ -59,7 +64,7 @@ const ScheduleView = ({
             {processedItems.map((node, idx) => {
                 if (node.type === 'gap') {
                     return (
-                        <div key={`gap-${idx}`} className="flex items-center gap-4 pl-4 opacity-60 min-h-[32px]">
+                        <div key={`gap-${idx}`} className="flex items-center gap-4 pl-4 opacity-60 relative group/gap" style={{ height: node.height, minHeight: '32px' }}>
                             <div className="w-16 text-right text-xs font-mono text-slate-400">
                                 {node.duration}分
                             </div>
@@ -83,7 +88,7 @@ const ScheduleView = ({
                 // Timeline View: Height is proportional
                 // List View: Height is auto
                 const style = viewMode === 'timeline'
-                    ? { minHeight: Math.max(80, duration * 1.5) + 'px' }
+                    ? { height: Math.max(24, duration * PX_PER_MIN) + 'px' }
                     : {};
 
                 return (
@@ -138,8 +143,8 @@ const ScheduleView = ({
                                             imgs={item.images}
                                             targetRowHeight={viewMode === 'timeline' ? 100 : 80}
                                             gap={2}
-                                            containerWidth={300} // This needs to be responsive ideally, but JG handles resize
-                                        // No onRm here, this is view only mode. Edit mode happens in sidebar/modal
+                                            containerWidth={300}
+                                            onImgClick={onImgClick} // Just view
                                         />
                                     </div>
                                 )}

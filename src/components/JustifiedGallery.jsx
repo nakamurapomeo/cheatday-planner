@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { X } from 'lucide-react';
 
-const JustifiedGallery = ({ imgs, onRm, targetRowHeight = 120, containerWidth = 400, gap = 4 }) => {
+const JustifiedGallery = ({ imgs, onRm, onImgClick, targetRowHeight = 120, containerWidth = 400, gap = 4 }) => {
   const [imageSizes, setImageSizes] = useState({});
   const containerRef = useRef(null);
   const [actualWidth, setActualWidth] = useState(containerWidth);
@@ -16,7 +16,7 @@ const JustifiedGallery = ({ imgs, onRm, targetRowHeight = 120, containerWidth = 
     updateWidth();
     const observer = new ResizeObserver(updateWidth);
     if (containerRef.current) observer.observe(containerRef.current);
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -69,13 +69,13 @@ const JustifiedGallery = ({ imgs, onRm, targetRowHeight = 120, containerWidth = 
     return rows.map(row => {
       const totalGaps = (row.items.length - 1) * gap;
       const availableForImages = availableWidth - totalGaps;
-      
+
       let rowHeight;
       // Don't stretch the last row if it's not full
       if (row.isLast && row.items.length < 3) { // Heuristic: <3 items means "not enough to fill properly"
-         rowHeight = Math.min(targetRowHeight, availableForImages / row.totalRatio);
-         // If it's really sparsely populated, just stick to targetRowHeight
-         if (availableForImages / row.totalRatio > targetRowHeight * 1.5) rowHeight = targetRowHeight;
+        rowHeight = Math.min(targetRowHeight, availableForImages / row.totalRatio);
+        // If it's really sparsely populated, just stick to targetRowHeight
+        if (availableForImages / row.totalRatio > targetRowHeight * 1.5) rowHeight = targetRowHeight;
       } else {
         rowHeight = availableForImages / row.totalRatio;
       }
@@ -114,8 +114,9 @@ const JustifiedGallery = ({ imgs, onRm, targetRowHeight = 120, containerWidth = 
               width: item.width,
               height: item.height,
             }}
+            onClick={() => onImgClick && onImgClick(item.img)}
           >
-            <div className="w-full h-full relative rounded overflow-hidden bg-gray-100">
+            <div className={`w-full h-full relative rounded overflow-hidden bg-gray-100 ${onImgClick ? 'cursor-zoom-in' : ''}`}>
               <img
                 src={item.img}
                 alt=""

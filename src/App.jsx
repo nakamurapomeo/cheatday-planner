@@ -35,6 +35,7 @@ export default function App({ loadData, saveData }) {
   const [newCatName, setNewCatName] = useState('');
   const [newCatColor, setNewCatColor] = useState('#6366f1');
   const [isAddingCat, setIsAddingCat] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null); // Lightbox state
 
   const impRef = useRef(null);
   const saveTimeoutRef = useRef(null);
@@ -482,9 +483,9 @@ export default function App({ loadData, saveData }) {
 
           <button
             onClick={addItem}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg shadow-orange-200 flex items-center justify-center gap-2 transition-transform active:scale-95"
+            className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-orange-200/50 flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95"
           >
-            <Plus size={18} /> 追加
+            <Plus size={20} /> <span className="tracking-wide">追加</span>
           </button>
         </div>
 
@@ -494,9 +495,31 @@ export default function App({ loadData, saveData }) {
             cats={cats}
             viewMode={viewMode}
             onEdit={setEditId}
+            onImgClick={setSelectedImage}
           />
         </div>
       </div>
+
+      {/* Lightbox Overlay */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white/70 hover:text-white bg-black/50 rounded-full p-2 transition-colors"
+            onClick={() => setSelectedImage(null)}
+          >
+            <X size={32} />
+          </button>
+          <img
+            src={selectedImage}
+            alt="Enlarged"
+            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-100 animate-scaleIn"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </Layout>
   );
 }
