@@ -110,7 +110,7 @@ const ScheduleView = ({
                                 borderLeft: `4px solid ${cat?.color || '#ccc'}`,
                             }}
                         >
-                            <div className={`${viewMode === 'timeline' ? 'sticky top-[80px] h-full' : ''} p-3 flex flex-col`}>
+                            <div className={`${viewMode === 'timeline' ? 'sticky top-[80px]' : ''} p-3 flex flex-col`}>
                                 <div className="flex items-start justify-between gap-2">
                                     <div className="flex-1 min-w-0">
                                         {/* Title */}
