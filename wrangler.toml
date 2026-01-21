@@ -2,13 +2,13 @@ name = "cheatday-planner"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "dist"
 
-# KV Namespace - IDはCloudflareダッシュボードで作成後に設定
-# [[kv_namespaces]]
-# binding = "CHEATDAY_KV"
-# id = "<YOUR_KV_NAMESPACE_ID>"
+# KV Namespace
+[[kv_namespaces]]
+binding = "CHEATDAY_KV"
+id = "9279695d42ca4f4890083e1f91b6baa8"
 
 # Preview用（ローカル開発）
 # [[kv_namespaces]]
 # binding = "CHEATDAY_KV"
-# id = "<YOUR_KV_NAMESPACE_ID>"
+# id = "9279695d42ca4f4890083e1f91b6baa8"
 # preview_id = "<YOUR_KV_PREVIEW_ID>"
