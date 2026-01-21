@@ -335,9 +335,25 @@ export default function App({ loadData, saveData }) {
                     type="number"
                     value={editingItem.budget}
                     onChange={(e) => updateItem(editingItem.id, { budget: e.target.value })}
-                    className="w-full pl-8 pr-2 py-2 bg-slate-50 border border-slate-200 rounded text-sm font-mono outline-none"
+                    className="w-full pl-10 pr-2 py-2 bg-slate-50 border border-slate-200 rounded text-sm font-mono outline-none"
                     placeholder="0"
                     step="100"
+                    onKeyDown={(e) => {
+                      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const val = parseInt(editingItem.budget) || 0;
+                        const delta = e.key === 'ArrowUp' ? 100 : -100;
+                        updateItem(editingItem.id, { budget: Math.max(0, val + delta) });
+                      }
+                    }}
+                    onWheel={(e) => {
+                      e.target.blur(); // Unfocus to prevent accidental rapid changes, or implement custom handler if user insists on wheel.
+                      // User requested wheel support. Implementing custom wheel logic:
+                      e.preventDefault();
+                      const val = parseInt(editingItem.budget) || 0;
+                      const delta = e.deltaY < 0 ? 100 : -100;
+                      updateItem(editingItem.id, { budget: Math.max(0, val + delta) });
+                    }}
                   />
                 </div>
               </div>
