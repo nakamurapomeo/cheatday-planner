@@ -265,7 +265,7 @@ export default function App({ loadData, saveData }) {
     <div className="flex flex-col h-full bg-white">
       {editingItem ? (
         <>
-          <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+          <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 sticky top-0 z-10">
             <h2 className="font-bold text-slate-700">詳細を編集</h2>
             <button onClick={() => deleteItem(editingItem.id)} className="text-red-400 hover:bg-red-50 p-1.5 rounded-lg transition-colors">
               <Trash2 size={16} />
@@ -337,6 +337,7 @@ export default function App({ loadData, saveData }) {
                     onChange={(e) => updateItem(editingItem.id, { budget: e.target.value })}
                     className="w-full pl-8 pr-2 py-2 bg-slate-50 border border-slate-200 rounded text-sm font-mono outline-none"
                     placeholder="0"
+                    step="100"
                   />
                 </div>
               </div>
@@ -374,7 +375,7 @@ export default function App({ loadData, saveData }) {
               </div>
 
               <div
-                className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-lg p-2 min-h-[100px]"
+                className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-lg p-4 min-h-[100px] transition-colors hover:bg-slate-100 hover:border-slate-300"
                 onDragOver={e => e.preventDefault()}
                 onDrop={e => {
                   e.preventDefault();
@@ -428,7 +429,7 @@ export default function App({ loadData, saveData }) {
       rightSidebar={RightSidebar}
       title={plan.name}
     >
-      <div className="max-w-3xl mx-auto w-full">
+      <div className="w-full h-full flex flex-col">
         <div className="sticky top-0 bg-white/80 backdrop-blur-md z-10 px-4 py-3 border-b border-slate-100 flex items-center justify-between">
           <div className="flex bg-slate-100 p-1 rounded-lg">
             <button
