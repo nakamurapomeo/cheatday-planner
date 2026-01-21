@@ -3,9 +3,7 @@
    High Density, Clean, Information Rich
    =================================== */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   /* Vibrant Palette */
