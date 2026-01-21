@@ -38,9 +38,9 @@ export async function onRequestGet(context) {
                 headers: { 'Content-Type': 'application/json' }
             }
         );
-    } catch {
+    } catch (e) {
         return new Response(
-            JSON.stringify({ error: 'データの取得に失敗しました' }),
+            JSON.stringify({ error: 'データの取得に失敗しました', details: e.message }),
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' }
@@ -78,9 +78,9 @@ export async function onRequestPost(context) {
                 headers: { 'Content-Type': 'application/json' }
             }
         );
-    } catch {
+    } catch (e) {
         return new Response(
-            JSON.stringify({ error: 'データの保存に失敗しました' }),
+            JSON.stringify({ error: 'データの保存に失敗しました', details: e.message, stack: e.stack }),
             {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' }
