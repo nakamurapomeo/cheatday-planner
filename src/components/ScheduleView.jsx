@@ -49,7 +49,7 @@ const ScheduleView = ({
     }, [items]);
 
     return (
-        <div className="flex flex-col gap-4 p-4 pb-20">
+        <div className="flex flex-col p-4 pb-20">
             {items.length === 0 && (
                 <div className="flex flex-col items-center justify-center p-10 text-slate-400">
                     <p>予定がありません</p>
@@ -59,7 +59,7 @@ const ScheduleView = ({
             {processedItems.map((node, idx) => {
                 if (node.type === 'gap') {
                     return (
-                        <div key={`gap-${idx}`} className="flex items-center gap-4 pl-4 opacity-60">
+                        <div key={`gap-${idx}`} className="flex items-center gap-4 pl-4 opacity-60 min-h-[32px]">
                             <div className="w-16 text-right text-xs font-mono text-slate-400">
                                 {node.duration}分
                             </div>
@@ -89,7 +89,7 @@ const ScheduleView = ({
                 return (
                     <div
                         key={item.id}
-                        className={`group relative flex gap-4 transition-all duration-300 ${viewMode === 'timeline' ? 'items-start' : 'items-center'}`}
+                        className={`group relative flex gap-4 transition-all duration-300 ${viewMode === 'timeline' ? 'items-start mb-0' : 'items-center mb-2'}`}
                         style={style}
                         onClick={() => onEdit(item.id)}
                     >

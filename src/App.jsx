@@ -348,12 +348,12 @@ export default function App({ loadData, saveData }) {
               <div>
                 <label className="block text-xs font-bold text-slate-400 mb-1">予算</label>
                 <div className="relative">
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 text-xs">¥</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-bold">¥</span>
                   <input
                     type="number"
                     value={editingItem.budget}
                     onChange={(e) => updateItem(editingItem.id, { budget: e.target.value })}
-                    className="w-full pl-10 pr-2 py-2 bg-slate-50 border border-slate-200 rounded text-sm font-mono outline-none"
+                    className="w-full pl-8 pr-2 py-2 bg-slate-50 border border-slate-200 rounded text-sm font-mono outline-none text-right"
                     placeholder="0"
                     step="100"
                     onKeyDown={(e) => {
@@ -482,7 +482,7 @@ export default function App({ loadData, saveData }) {
 
           <button
             onClick={addItem}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg shadow-orange-200 flex items-center gap-2 transition-transform active:scale-95"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg shadow-orange-200 flex items-center justify-center gap-2 transition-transform active:scale-95"
           >
             <Plus size={18} /> 追加
           </button>
