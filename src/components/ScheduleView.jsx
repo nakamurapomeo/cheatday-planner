@@ -99,17 +99,21 @@ const ScheduleView = ({
                         onClick={() => onEdit(item.id)}
                     >
                         {/* Time Column */}
-                        <div className="w-16 flex flex-col items-end pt-1">
+                        <div className="w-16 flex flex-col items-end pt-1 sticky top-[80px]">
                             <span className="text-sm font-bold font-mono text-slate-700">{item.startTime}</span>
                             <span className="text-xs text-slate-400 font-mono">{item.endTime}</span>
                         </div>
 
                         {/* Main Card */}
                         <div
-                            className="flex-1 rounded-xl bg-white card-shadow overflow-hidden relative group-hover:shadow-md transition-shadow cursor-pointer"
-                            style={{ borderLeft: `4px solid ${cat?.color || '#ccc'}` }}
+                            className="flex-1 rounded-xl bg-white card-shadow relative group-hover:shadow-md transition-shadow cursor-pointer"
+                            style={{
+                                borderLeft: `4px solid ${cat?.color || '#ccc'}`,
+                                // Remove overflow-hidden to allow sticky children if needed, but rounding clips images. 
+                                // Actually, sticky inside here works if height is tall.
+                            }}
                         >
-                            <div className="p-3">
+                            <div className="p-3 sticky top-[80px]">
                                 <div className="flex items-start justify-between gap-2">
                                     <div className="flex-1 min-w-0">
                                         {/* Title */}
