@@ -115,36 +115,35 @@ function AuthWrapper() {
       syncStatus === 'error' ? '同期エラー' : 'ローカル';
 
   return (
-    <div className="relative">
-      {/* Enhanced Sync Status Bar */}
-      <div className="sync-bar fixed top-0 left-0 right-0 z-50">
-        <div className="max-w-2xl mx-auto px-4 py-2.5 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className={`p-1.5 rounded-lg ${syncStatus === 'synced' ? 'bg-emerald-500/10' : syncStatus === 'error' ? 'bg-red-500/10' : 'bg-white/5'}`}>
-              <SyncIcon size={14} className={`${syncColor} ${syncStatus === 'syncing' ? 'animate-spin' : ''}`} />
-            </div>
-            <span className="text-sm text-white/60">
-              {syncText}
-              {lastSynced && syncStatus === 'synced' && (
-                <span className="text-white/40 ml-1.5">
-                  {lastSynced.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })}
-                </span>
-              )}
-            </span>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 text-white/50 hover:text-white/90 px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all text-sm"
-          >
-            <LogOut size={14} />
-            <span className="hidden sm:inline">ログアウト</span>
-          </button>
-        </div>
+    <div className="relative h-screen overflow-hidden">
+      {/* Main app - No padding needed now */}
+      <div className="h-full">
+        <App loadData={loadData} saveData={saveData} />
       </div>
 
-      {/* Main app with padding for status bar */}
-      <div className="pt-12">
-        <App loadData={loadData} saveData={saveData} />
+      {/* Enhanced Sync Status Bar - Floating Bottom Right */}
+      <div className="fixed bottom-4 right-4 z-50 animate-fadeIn">
+        <div className="flex items-center gap-2 bg-slate-800/90 backdrop-blur text-white px-3 py-2 rounded-full shadow-lg border border-white/10">
+          <div className={`p-1 rounded-full ${syncStatus === 'synced' ? 'bg-emerald-500/20' : syncStatus === 'error' ? 'bg-red-500/20' : 'bg-white/10'}`}>
+            <SyncIcon size={12} className={`${syncColor} ${syncStatus === 'syncing' ? 'animate-spin' : ''}`} />
+          </div>
+          <span className="text-xs font-medium pr-1">
+            {syncText}
+          </span>
+          {syncStatus === 'synced' && lastSynced && (
+            <span className="text-[10px] text-white/40 border-l border-white/20 pl-2">
+              {lastSynced.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })}
+            </span>
+          )}
+          <div className="w-px h-3 bg-white/20 mx-1"></div>
+          <button
+            onClick={handleLogout}
+            className="text-white/50 hover:text-white transition-colors"
+            title="ログアウト"
+          >
+            <LogOut size={14} />
+          </button>
+        </div>
       </div>
     </div>
   );
