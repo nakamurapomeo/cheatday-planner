@@ -98,7 +98,7 @@ const ScheduleView = ({
                         onClick={() => onEdit(item.id)}
                     >
                         {/* Time Column */}
-                        <div className={`w-16 flex flex-col items-end pt-1 ${viewMode === 'timeline' ? 'sticky top-[80px]' : ''}`}>
+                        <div className={`w-16 flex flex-col items-end pt-1 ${viewMode === 'timeline' ? 'sticky top-[130px] lg:top-[80px]' : ''}`}>
                             <span className="text-sm font-bold font-mono text-slate-700">{item.startTime}</span>
                             <span className="text-xs text-slate-400 font-mono">{item.endTime}</span>
                         </div>
@@ -110,7 +110,7 @@ const ScheduleView = ({
                                 borderLeft: `4px solid ${cat?.color || '#ccc'}`,
                             }}
                         >
-                            <div className={`${viewMode === 'timeline' ? 'sticky top-[80px]' : ''} p-3 flex flex-col`}>
+                            <div className={`${viewMode === 'timeline' ? 'sticky top-[130px] lg:top-[80px]' : ''} p-3 flex flex-col`}>
                                 <div className="flex items-start justify-between gap-2">
                                     <div className="flex-1 min-w-0">
                                         {/* Title */}
